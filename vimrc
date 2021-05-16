@@ -40,8 +40,3 @@ call plug#begin()
 Plug 'itchyny/lightline.vim'
 Plug 'preservim/nerdtree'
 call plug#end()
-
-nnoremap <leader><tab> :NERDTreeToggle<CR>
-
-
-
