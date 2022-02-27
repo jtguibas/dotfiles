@@ -9,15 +9,16 @@ set incsearch
 set ignorecase
 set hlsearch
 set noshowmode
-set lazyredraw
 set title
 set visualbell
 set t_vb=
 set noerrorbells
 set belloff=esc
 set encoding=utf-8
+set termguicolors
 filetype plugin indent on
 set mouse=a
+set confirm
 syntax on
 
 set tabstop=2
@@ -27,26 +28,44 @@ set shiftwidth=2
 set autoindent
 set copyindent
 set smartindent
+set background=dark
 
-
-set cursorline
-hi CursorLineNr cterm=none
-highlight CursorLine ctermbg=235 term=none cterm=none
-
-
+nnoremap q <Nop>
 noremap <Leader><Tab> :NERDTreeToggle<CR>
 noremap <Leader>l :set invnumber<CR>
 noremap <Leader>p :CtrlP<CR>
-noremap <leader>1 1gt
-noremap <leader>2 2gt
-noremap <leader>3 3gt
-noremap <leader>4 4gt
-noremap <leader>5 5gt
-noremap <leader>6 6gt
-noremap <leader>7 7gt
-noremap <leader>8 8gt
-noremap <leader>9 9gt
-noremap <leader>0 :tablast<cr>
+nnoremap <Leader>t :term ++curwin ++kill=hup<CR>
+
+nnoremap <C-w>1 1gt
+nnoremap <C-w>2 2gt
+nnoremap <C-w>3 3gt
+nnoremap <C-w>4 4gt
+nnoremap <C-w>5 5gt
+nnoremap <C-w>6 6gt
+nnoremap <C-w>7 7gt
+nnoremap <C-w>8 8gt
+nnoremap <C-w>9 9gt
+nnoremap <C-w>0 :tablast<cr>
+
+nnoremap <C-w>m <C-w>v<C-w>w<C-w>n<C-w>w<C-w>c
+nnoremap <C-w>t :tabnew<CR>
+
+tnoremap <C-w>1 <C-\><C-n>1gt
+tnoremap <C-w>2 <C-\><C-n>2gt
+tnoremap <C-w>3 <C-\><C-n>3gt
+tnoremap <C-w>4 <C-\><C-n>4gt
+tnoremap <C-w>5 <C-\><C-n>5gt
+tnoremap <C-w>6 <C-\><C-n>6gt
+tnoremap <C-w>7 <C-\><C-n>7gt
+tnoremap <C-w>8 <C-\><C-n>8gt
+tnoremap <C-w>9 <C-\><C-n>9gt
+tnoremap <C-w>0 <C-\><C-n>:tablast<cr>
+
+tnoremap <C-w>1 <C-\><C-n>1gt
+tnoremap <Esc> <C-\><C-n>:set nonumber<CR>
+
+let g:floaterm_keymap_toggle = '<Leader>ft'
+cnoreabbrev <expr> q getcmdtype() == ":" && getcmdline() == 'q' ? 'qa!' : 'q'
 
 let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
 if empty(glob(data_dir . '/autoload/plug.vim'))
@@ -57,23 +76,18 @@ endif
 call plug#begin()
 Plug 'itchyny/lightline.vim'
 Plug 'preservim/nerdtree'
-Plug 'vim-scripts/AutoComplPop'
 Plug 'tomasiser/vim-code-dark'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'preservim/nerdtree'
 Plug 'tomlion/vim-solidity'
-"Install nodejs: curl -sL install-node.vercel.app/lts | bash
+"curl -sL install-node.vercel.app/lts | bash
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-unimpaired'
 Plug 'easymotion/vim-easymotion'
+Plug 'voldikss/vim-floaterm'
 call plug#end()
 
-let g:NERDTreeMapOpenSplit = "h"
-let g:NERDTreeMapOpenVSplit = "v"
-
-set t_Co=256
-set t_ut=
 let g:lightline = { 'colorscheme': 'codedark' , 'component_function': { 'filename': 'LightlineFilename' } }
 function! LightlineFilename()
   let root = fnamemodify(get(b:, 'git_dir'), ':h')
@@ -85,10 +99,9 @@ function! LightlineFilename()
 endfunction
 colorscheme codedark
 
-
-set complete+=kspell
-set completeopt=menuone,longest
-set colorcolumn=80
+"set complete+=kspell
+"set completeopt=menuone,longest
+"set colorcolumn=80
 
 set hidden
 
